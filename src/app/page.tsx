@@ -41,6 +41,20 @@ export default function Home() {
             <div className="bg-white shadow-wide"></div>
             <div className="bg-white shadow-wide"></div>
           </div>
+
+          <div className="h-64">
+            <div className="bg-white border shadow-wide w-40 h-40"></div>
+            <div className="bg-white shadow-wide"></div>
+            <div className="bg-white shadow-wide"></div>
+            <div className="bg-white shadow-wide"></div>
+          </div>
+
+          <div className="h-64">
+            <div className="bg-white border shadow-wide w-40 h-40"></div>
+            <div className="bg-white shadow-wide"></div>
+            <div className="bg-white shadow-wide"></div>
+            <div className="bg-white shadow-wide"></div>
+          </div>
         </MainWrapper>
       </section>
     </main>
