@@ -32,9 +32,7 @@ const Navbar = () => {
           </Link>
           <div className="space-x-3">
             <Button>Login</Button>
-            <Button variant={'outline'} className="hover:bg-sky-100">
-              Sign up
-            </Button>
+            <Button variant={'outline'}>Sign up</Button>
           </div>
         </nav>
       </MainWrapper>
