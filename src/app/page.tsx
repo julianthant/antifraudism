@@ -1,9 +1,9 @@
-import MainCarousel from "@/components/MainCarousel";
-import MainWrapper from "@/components/MainWrapper";
-import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import MainCarousel from '@/components/MainCarousel';
+import MainWrapper from '@/components/MainWrapper';
+import { Button } from '@/components/ui/button';
+import { ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -27,17 +27,17 @@ export default function Home() {
                 assumenda tempore, voluptas alias nostrum modi impedit.
               </p>
               <Link
-                href={"/"}
+                href={'/'}
                 className="flex items-center font-bold text-sky-400"
               >
-                Learn More <ChevronRight size={"16px"} />
+                Learn More <ChevronRight size={'16px'} />
               </Link>
             </div>
           </div>
 
           <div
             className="bg-white p-12 shadow-wide"
-            style={{ backgroundImage: "url(/plant-bg.png)" }}
+            style={{ backgroundImage: 'url(/plant-bg.png)' }}
           >
             <div className="pb-8 space-y-3">
               <h1 className="text-4xl font-black text-center text-white">
@@ -94,24 +94,24 @@ export default function Home() {
                 Choose your starting point
               </h1>
               <a
-                href={"/"}
+                href={'/'}
                 className="font-medium text-sky-400 hover:underline flex justify-center pb-6"
               >
                 Explore the community & services
               </a>
             </div>
             <div className="grid grid-flow-col gap-x-6 grid-cols-3 p-4">
-              <div className="bg-white p-4 text-center border shadow-wide ">
+              <div className="bg-white p-4 text-center border shadow-wide">
                 <h2 className="pb-5 text-xl font-semibold">Read Our Blogs</h2>
                 <p className="pb-16">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Repudiandae laborum voluptatem quod doloribus.
                 </p>
                 <Link
-                  href={"/"}
-                  className="text-center font-bold text-sky-400 hover:underline "
+                  href={'/'}
+                  className="flex items-center justify-center font-bold text-sky-400 hover:underline "
                 >
-                  Read More
+                  Read More <ChevronRight size={'16px'} />
                 </Link>
               </div>
               <div className="bg-white p-4 text-center border shadow-wide">
@@ -123,10 +123,10 @@ export default function Home() {
                   Repudiandae laborum voluptatem quod doloribus.
                 </p>
                 <Link
-                  href={"/"}
-                  className="text-center font-bold text-sky-400 hover:underline"
+                  href={'/'}
+                  className="flex items-center justify-center font-bold text-sky-400 hover:underline"
                 >
-                  Post Now
+                  Post Now <ChevronRight size={'16px'} />
                 </Link>
               </div>
               <div className="bg-white p-4 text-center border shadow-wide">
@@ -138,10 +138,10 @@ export default function Home() {
                   Repudiandae laborum voluptatem quod doloribus.
                 </p>
                 <Link
-                  href={"/"}
-                  className="text-center font-bold text-sky-400 hover:underline"
+                  href={'/'}
+                  className="flex items-center justify-center font-bold text-sky-400 hover:underline"
                 >
-                  Review Now
+                  Review Now <ChevronRight size={'16px'} />
                 </Link>
               </div>
             </div>
