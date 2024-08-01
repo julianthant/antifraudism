@@ -1,10 +1,33 @@
+'use client';
+
+import Link from 'next/link';
 import MainWrapper from './MainWrapper';
+
 import { Icons } from './Icons';
 import { Input } from '@/components/ui/input';
-import Link from 'next/link';
 import { Button } from './ui/button';
 
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { emailSchema } from '@/utils/zodSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form, FormField, FormItem, FormControl, FormMessage } from './ui/form';
+
+import { submitNewsletter } from '@/actions/submitNewsletter';
+
 const Footer = () => {
+  const form = useForm<z.infer<typeof emailSchema>>({
+    resolver: zodResolver(emailSchema),
+    defaultValues: {
+      email: '',
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof emailSchema>) {
+    submitNewsletter(values.email);
+    form.reset();
+  }
+
   return (
     <footer className="py-20 bg-slate-950 text-white">
       <MainWrapper className="flex justify-between items-center">
@@ -52,14 +75,36 @@ const Footer = () => {
 
         <div className="w-[350px] space-y-2">
           <h3 className="text-sm font-medium">Get updates from antifraudism</h3>
-          <Input
-            type="email"
-            className="rounded-none shadow-none"
-            placeholder="Email"
-          />
-          <Button variant={'secondary'} className="w-full rounded-none">
-            Subscribe
-          </Button>
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        className="rounded-none shadow-none"
+                        placeholder="Email"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Button
+                type="submit"
+                variant={'secondary'}
+                className="w-full rounded-none"
+              >
+                Subscribe
+              </Button>
+            </form>
+          </Form>
         </div>
       </MainWrapper>
     </footer>

@@ -1,0 +1,1 @@
+ALTER TABLE "my_schema"."subscribers" DROP COLUMN IF EXISTS "name";

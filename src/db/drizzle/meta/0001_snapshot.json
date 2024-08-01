@@ -1,0 +1,40 @@
+{
+  "id": "5865dc8f-3354-4295-9944-fa78d1b62880",
+  "prevId": "f9eb57b1-0b1f-4626-9823-3e21e7dfa1bc",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "my_schema.subscribers": {
+      "name": "subscribers",
+      "schema": "my_schema",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {
+    "my_schema": "my_schema"
+  },
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
