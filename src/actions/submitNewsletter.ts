@@ -10,7 +10,7 @@ export const submitNewsletter = async (email: string) => {
   const validateEmail = emailSchema.safeParse({ email });
 
   if (!validateEmail.success) {
-    throw new Error('Invalid email!');
+    return { error: 'Invalid email!' };
   }
 
   const emailExists = await db
@@ -19,7 +19,7 @@ export const submitNewsletter = async (email: string) => {
     .where(eq(Subscribers.email, email));
 
   if (emailExists.length) {
-    throw new Error('Email already exists!');
+    return { error: 'Email already subscribed!' };
   }
 
   try {
@@ -28,8 +28,8 @@ export const submitNewsletter = async (email: string) => {
       sendNewsletterEmailToOne(email),
     ]);
   } catch (error) {
-    throw new Error('Failed to subscribe!');
+    return { error: 'Failed to subscribe!' };
   }
 
-  return { success: true };
+  return { success: 'The confirmation email has been sent.' };
 };

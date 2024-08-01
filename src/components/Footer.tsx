@@ -30,20 +30,12 @@ const Footer = () => {
 
   function onSubmit(values: z.infer<typeof emailSchema>) {
     startTransition(() => {
-      submitNewsletter(values.email)
-        .then((res) => {
-          res.success &&
-            toast({
-              title: 'Newsletter Subscription',
-              description: 'The confirmation email has been sent.',
-            });
-        })
-        .catch((error) => {
-          toast({
-            title: 'Newsletter Subscription',
-            description: error.message,
-          });
+      submitNewsletter(values.email).then((res) => {
+        toast({
+          title: 'Newsletter Subscription',
+          description: res.error || res.success,
         });
+      });
       form.reset();
     });
   }
