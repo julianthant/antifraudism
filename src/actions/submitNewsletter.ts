@@ -4,17 +4,13 @@ import db from '@/db';
 import { Subscribers } from '@/db/schema';
 import { emailSchema } from '@/utils/zodSchema';
 import { eq } from 'drizzle-orm';
-import {
-  sendNewsletterEmailToAll,
-  sendNewsletterEmailToOne,
-} from './sendNewsletterEmail';
+import { sendNewsletterEmailToOne } from './sendNewsletterEmail';
 
 export const submitNewsletter = async (email: string) => {
   const validateEmail = emailSchema.safeParse({ email });
 
   if (!validateEmail.success) {
-    console.error(validateEmail.error);
-    return;
+    throw new Error('Invalid email!');
   }
 
   const emailExists = await db
@@ -23,8 +19,7 @@ export const submitNewsletter = async (email: string) => {
     .where(eq(Subscribers.email, email));
 
   if (emailExists.length) {
-    console.log('Email already exists');
-    return;
+    throw new Error('Email already exists!');
   }
 
   try {
@@ -32,11 +27,9 @@ export const submitNewsletter = async (email: string) => {
       db.insert(Subscribers).values({ email: email }),
       sendNewsletterEmailToOne(email),
     ]);
-    console.log('Newsletter submission successful');
   } catch (error) {
-    console.error('Error submitting newsletter:', error);
-    return;
+    throw new Error('Failed to subscribe!');
   }
 
-  return Response.json({ success: true });
+  return { success: true };
 };

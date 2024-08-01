@@ -13,12 +13,12 @@ export const sendNewsletterEmailToAll = async () => {
     .from(Subscribers);
 
   if (!newsletterSubscribers.length) {
-    return;
+    throw new Error();
   }
 
   newsletterSubscribers.forEach((subscriber) => {
     if (!subscriber.email) {
-      return;
+      throw new Error();
     }
 
     resend.emails.send({

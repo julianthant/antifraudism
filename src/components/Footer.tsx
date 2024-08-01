@@ -14,8 +14,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField, FormItem, FormControl, FormMessage } from './ui/form';
 
 import { submitNewsletter } from '@/actions/submitNewsletter';
+import { useTransition } from 'react';
+import { useToast } from '@/components/ui/use-toast';
 
 const Footer = () => {
+  const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof emailSchema>>({
     resolver: zodResolver(emailSchema),
     defaultValues: {
@@ -24,8 +29,23 @@ const Footer = () => {
   });
 
   function onSubmit(values: z.infer<typeof emailSchema>) {
-    submitNewsletter(values.email);
-    form.reset();
+    startTransition(() => {
+      submitNewsletter(values.email)
+        .then((res) => {
+          res.success &&
+            toast({
+              title: 'Newsletter Subscription',
+              description: 'The confirmation email has been sent.',
+            });
+        })
+        .catch((error) => {
+          toast({
+            title: 'Newsletter Subscription',
+            description: error.message,
+          });
+        });
+      form.reset();
+    });
   }
 
   return (
@@ -100,7 +120,11 @@ const Footer = () => {
                 type="submit"
                 variant={'secondary'}
                 className="w-full rounded-none"
+                disabled={isPending}
               >
+                {isPending && (
+                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Subscribe
               </Button>
             </form>
