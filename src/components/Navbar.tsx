@@ -4,10 +4,18 @@ import MainWrapper from './MainWrapper';
 import {
   RegisterLink,
   LoginLink,
+  LogoutLink,
 } from '@kinde-oss/kinde-auth-nextjs/components';
-import { Button } from '@/components/ui/button';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-const Navbar = () => {
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
+const Navbar = async () => {
+  const { isAuthenticated, getUser } = getKindeServerSession();
+  const isUserAuthenticated = await isAuthenticated();
+  const user = isUserAuthenticated ? await getUser() : null;
+
   return (
     <div className="shadow-xl z-50 bg-slate-950 text-white">
       <MainWrapper className="py-3 flex items-center justify-between">
@@ -34,14 +42,27 @@ const Navbar = () => {
           >
             Contact
           </Link>
-          <div className="space-x-3">
-            <Button variant={'secondary'}>
-              <LoginLink>Sign in</LoginLink>
-            </Button>
-            <Button variant={'outline'} className="bg-transparent">
-              <RegisterLink>Sign up</RegisterLink>
-            </Button>
-          </div>
+
+          {isUserAuthenticated ? (
+            <div className="space-x-3">
+              <Button variant={'outline'} className="bg-transparent">
+                <LogoutLink>Log out</LogoutLink>
+              </Button>
+              <Avatar>
+                <AvatarImage src={user?.picture || ''} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </div>
+          ) : (
+            <div className="space-x-3">
+              <Button variant={'secondary'}>
+                <LoginLink>Sign in</LoginLink>
+              </Button>
+              <Button variant={'outline'} className="bg-transparent">
+                <RegisterLink>Sign up</RegisterLink>
+              </Button>
+            </div>
+          )}
         </nav>
       </MainWrapper>
     </div>
