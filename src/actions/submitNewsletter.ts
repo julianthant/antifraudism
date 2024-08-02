@@ -1,35 +1,56 @@
-'use server';
-
 import db from '@/db';
-import { Subscribers } from '@/db/schema';
+import { SubscriberCodes, Subscribers } from '@/db/schema';
 import { emailSchema } from '@/utils/zodSchema';
-import { eq } from 'drizzle-orm';
-import { sendNewsletterEmailToOne } from './sendNewsletterEmail';
+import { and, eq } from 'drizzle-orm';
+import { check } from 'drizzle-orm/mysql-core';
 
-export const submitNewsletter = async (email: string) => {
+export const submitNewsletter = async (email: string, code: string) => {
+  if (!email || !code) {
+    return { error: 'Invalid request!' };
+  }
+
+  if (typeof email !== 'string' || typeof code !== 'string') {
+    return { error: 'Invalid request!' };
+  }
+
   const validateEmail = emailSchema.safeParse({ email });
 
   if (!validateEmail.success) {
     return { error: 'Invalid email!' };
   }
 
-  const emailExists = await db
+  if (code.length !== 6) {
+    return { error: 'Invalid code!' };
+  }
+
+  const validateParms = await db
+    .select()
+    .from(SubscriberCodes)
+    .where(
+      and(eq(SubscriberCodes.email, email), eq(SubscriberCodes.code, code))
+    );
+
+  if (!validateParms.length) {
+    return { error: 'Invalid parameters!' };
+  }
+
+  const checkExisting = await db
     .select()
     .from(Subscribers)
     .where(eq(Subscribers.email, email));
 
-  if (emailExists.length) {
+  if (checkExisting.length) {
     return { error: 'Email already subscribed!' };
   }
 
   try {
     await Promise.all([
       db.insert(Subscribers).values({ email: email }),
-      sendNewsletterEmailToOne(email),
+      db.delete(SubscriberCodes).where(eq(SubscriberCodes.email, email)),
     ]);
   } catch (error) {
     return { error: 'Failed to subscribe!' };
   }
 
-  return { success: 'The confirmation email has been sent.' };
+  return { success: 'You have successfully subscribed!' };
 };

@@ -1,6 +1,9 @@
 'use server';
 
-import NewsletterEmailTemplate from '@/components/NewsletterEmailTemplate';
+import {
+  EmailTemplateConfirmation,
+  EmailTemplateToAll,
+} from '@/components/NewsletterEmailTemplate';
 import { Resend } from 'resend';
 import db from '@/db';
 import { Subscribers } from '@/db/schema';
@@ -16,7 +19,7 @@ export const sendNewsletterEmailToAll = async () => {
     throw new Error();
   }
 
-  newsletterSubscribers.forEach((subscriber) => {
+  newsletterSubscribers.forEach(async (subscriber) => {
     if (!subscriber.email) {
       throw new Error();
     }
@@ -25,16 +28,16 @@ export const sendNewsletterEmailToAll = async () => {
       from: 'antifraudism@julianhein.me',
       to: [subscriber.email],
       subject: 'Hello world',
-      react: NewsletterEmailTemplate({ email: subscriber.email }),
+      react: EmailTemplateToAll(subscriber.email),
     });
   });
 };
 
-export const sendNewsletterEmailToOne = async (email: string) => {
+export const sendNewsletterEmailToOne = async (email: string, code: string) => {
   resend.emails.send({
     from: 'antifraudism@julianhein.me',
     to: [email],
     subject: 'Hello world',
-    react: NewsletterEmailTemplate({ email: email }),
+    react: EmailTemplateConfirmation({ email: email, code: code }),
   });
 };

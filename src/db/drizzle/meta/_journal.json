@@ -15,6 +15,20 @@
       "when": 1722500238284,
       "tag": "0001_many_tombstone",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1722559329078,
+      "tag": "0002_exotic_red_wolf",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1722570781390,
+      "tag": "0003_worried_thunderbolt_ross",
+      "breakpoints": true
     }
   ]
 }

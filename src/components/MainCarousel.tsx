@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/carousel';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { buttonVariants } from './ui/button';
 
 const MainCarousel = () => {
   return (
@@ -19,7 +20,7 @@ const MainCarousel = () => {
         className="w-full shadow-wide"
       >
         <CarouselContent>
-          <CarouselItem className="bg-white h-min grid grid-cols-2">
+          <CarouselItem className="bg-white grid grid-cols-2">
             <div className="p-12 flex flex-col">
               <div className="bg-sky-100 text-sky-500 font-semibold rounded-md w-fit px-3 py-1">
                 Featured Blog
@@ -35,13 +36,19 @@ const MainCarousel = () => {
               </p>
               <Link
                 href={'/'}
-                className="flex items-center font-bold text-sky-400"
+                className={buttonVariants({
+                  size: 'sm',
+                  variant: 'ghost',
+                  className:
+                    'flex items-center w-min text-sky-400 hover:text-sky-400 -ml-3',
+                })}
               >
-                Read More <ChevronRight size={'16px'} />
+                <p className="font-bold text-base ">Read More</p>{' '}
+                <ChevronRight size={'16px'} />
               </Link>
             </div>
             <div>
-              <img src="phone.jpg" alt="phone" />
+              <img src="phone.jpg" alt="phone" className="h-full" />
             </div>
           </CarouselItem>
           <CarouselItem className="bg-white h-min grid grid-cols-2">

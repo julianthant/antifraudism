@@ -13,9 +13,9 @@ import { emailSchema } from '@/utils/zodSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField, FormItem, FormControl, FormMessage } from './ui/form';
 
-import { submitNewsletter } from '@/actions/submitNewsletter';
 import { useTransition } from 'react';
 import { useToast } from '@/components/ui/use-toast';
+import { sendNewsletterConfirmation } from '@/actions/sendNewsletterConfirmation';
 
 const Footer = () => {
   const [isPending, startTransition] = useTransition();
@@ -30,7 +30,7 @@ const Footer = () => {
 
   function onSubmit(values: z.infer<typeof emailSchema>) {
     startTransition(() => {
-      submitNewsletter(values.email).then((res) => {
+      sendNewsletterConfirmation(values.email).then((res) => {
         toast({
           title: 'Newsletter Subscription',
           description: res.error || res.success,

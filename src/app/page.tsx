@@ -1,6 +1,6 @@
 import MainCarousel from '@/components/MainCarousel';
 import MainWrapper from '@/components/MainWrapper';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -28,9 +28,15 @@ export default function Home() {
               </p>
               <Link
                 href={'/'}
-                className="flex items-center font-bold text-sky-400"
+                className={buttonVariants({
+                  size: 'sm',
+                  variant: 'ghost',
+                  className:
+                    'flex items-center w-min text-sky-400 hover:text-sky-400 -ml-3',
+                })}
               >
-                Learn More <ChevronRight size={'16px'} />
+                <p className="font-bold text-base">Learn More</p>{' '}
+                <ChevronRight size={'16px'} />
               </Link>
             </div>
           </div>
@@ -103,45 +109,63 @@ export default function Home() {
             <div className="grid grid-flow-col gap-x-6 grid-cols-3 p-4">
               <div className="bg-white p-4 text-center border shadow-wide">
                 <h2 className="pb-5 text-xl font-semibold">Read Our Blogs</h2>
-                <p className="pb-16">
+                <p className="pb-[45px]">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Repudiandae laborum voluptatem quod doloribus.
                 </p>
                 <Link
                   href={'/'}
-                  className="flex items-center justify-center font-bold text-sky-400 hover:underline "
+                  className={buttonVariants({
+                    size: 'sm',
+                    variant: 'ghost',
+                    className:
+                      'flex items-center justify-center text-sky-400 hover:text-sky-400',
+                  })}
                 >
-                  Read More <ChevronRight size={'16px'} />
+                  <p className="font-bold text-base ">Read More</p>{' '}
+                  <ChevronRight size={'16px'} />
                 </Link>
               </div>
               <div className="bg-white p-4 text-center border shadow-wide">
                 <h2 className="pb-5 text-xl font-semibold">
                   Share Your Experience
                 </h2>
-                <p className="pb-16">
+                <p className="pb-[45px]">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Repudiandae laborum voluptatem quod doloribus.
                 </p>
                 <Link
                   href={'/'}
-                  className="flex items-center justify-center font-bold text-sky-400 hover:underline"
+                  className={buttonVariants({
+                    size: 'sm',
+                    variant: 'ghost',
+                    className:
+                      'flex items-center justify-center text-sky-400 hover:text-sky-400',
+                  })}
                 >
-                  Post Now <ChevronRight size={'16px'} />
+                  <p className="font-bold text-base ">Post Now</p>{' '}
+                  <ChevronRight size={'16px'} />
                 </Link>
               </div>
               <div className="bg-white p-4 text-center border shadow-wide">
                 <h2 className="pb-5 text-xl font-semibold">
                   Feedbacks & Suggestions
                 </h2>
-                <p className="pb-16">
+                <p className="pb-[45px]">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Repudiandae laborum voluptatem quod doloribus.
                 </p>
                 <Link
                   href={'/'}
-                  className="flex items-center justify-center font-bold text-sky-400 hover:underline"
+                  className={buttonVariants({
+                    size: 'sm',
+                    variant: 'ghost',
+                    className:
+                      'flex items-center justify-center text-sky-400 hover:text-sky-400',
+                  })}
                 >
-                  Review Now <ChevronRight size={'16px'} />
+                  <p className="font-bold text-base ">Review Now</p>{' '}
+                  <ChevronRight size={'16px'} />
                 </Link>
               </div>
             </div>
