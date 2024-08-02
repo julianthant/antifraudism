@@ -1,8 +1,9 @@
+'use server';
+
 import db from '@/db';
 import { SubscriberCodes, Subscribers } from '@/db/schema';
 import { emailSchema } from '@/utils/zodSchema';
 import { and, eq } from 'drizzle-orm';
-import { check } from 'drizzle-orm/mysql-core';
 
 export const submitNewsletter = async (email: string, code: string) => {
   if (!email || !code) {
