@@ -7,9 +7,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const sql = neon(
-  'postgresql://neondb_owner:HE1Ba7hnivCY@ep-hidden-field-a6tejz9q.us-west-2.aws.neon.tech/neondb?sslmode=require'
-);
+const sql = neon(process.env.DATABASE_URL || '');
 
 const db = drizzle(sql, { schema });
 
