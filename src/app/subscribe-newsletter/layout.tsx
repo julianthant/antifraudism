@@ -9,7 +9,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div>
       <Suspense>{children}</Suspense>
-      {children}
     </div>
   );
 };
